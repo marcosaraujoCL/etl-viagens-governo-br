@@ -1,76 +1,54 @@
-📊 Pipeline ETL - Viagens do Governo Federal (2025)
-Este projeto consiste em um script de ETL (Extract, Transform, Load) desenvolvido em Python para automatizar o tratamento de dados públicos de viagens a serviço do Governo Federal.
+# 📊 Pipeline ETL - Viagens do Governo Federal (2025)
 
-O objetivo final é gerar uma base de dados limpa e padronizada para alimentar um Dashboard no Power BI, permitindo auditoria de gastos, identificação de gargalos e análise de eficiência.
+![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
+![Status](https://img.shields.io/badge/Status-Concluído-brightgreen?style=for-the-badge)
 
-📷 Demonstração do Dashboard
-Destaque: O painel utiliza Dark Mode para foco em análise, Mapas de Calor (Azure Maps) para geolocalização de gastos e Matrizes Hierárquicas para detalhamento de despesas.
+> **Resumo:** Script de ETL (Extract, Transform, Load) para automatizar o tratamento de dados públicos de viagens a serviço do Governo Federal, gerando insights sobre gastos e eficiência.
 
-!(img/Animação.gif) (Aguarde o carregamento do GIF para visualizar a interatividade)
+---
 
-🚀 Tecnologias Utilizadas
-Python 3.13 (Script de Engenharia de Dados)
+## 📷 Demonstração do Dashboard
 
-Pandas (Manipulação e limpeza de dados)
+O painel utiliza **Dark Mode** para foco em análise, **Mapas de Calor** (Azure Maps) para geolocalização e **Matrizes Hierárquicas** para detalhamento.
 
-Zipfile & io (Manipulação de arquivos compactados em memória)
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/5c57d502-e154-4c5f-8c2c-051d9c424d26" width="100%" alt="Demonstração do Dashboard" />
+  <p><em>(Aguarde o carregamento do GIF para visualizar a interatividade)</em></p>
+</div>
 
-Power BI (Modelagem de Dados, DAX e Visualização)
+---
 
-⚙️ O Processo ETL (Engenharia)
-O script ETL.py executa as seguintes etapas críticas:
+## 🚀 Tecnologias Utilizadas
 
-1. Extração (Extract)
-Leitura direta de arquivos .zip sem necessidade de descompactação manual, economizando armazenamento local.
+* **Python 3.13:** Script principal de Engenharia de Dados.
+* **Pandas:** Biblioteca core para manipulação e limpeza do DataFrame.
+* **Zipfile & io:** Manipulação eficiente de arquivos compactados em memória (sem extração física).
+* **Power BI:** Modelagem de Dados, medidas DAX e Visualização interativa.
 
-Carregamento do arquivo CSV (2025_Viagem.csv) utilizando io.BytesIO para otimização de memória.
+---
 
-Tratamento de encoding (iso-8859-1) para garantir a integridade de caracteres da língua portuguesa.
+## ⚙️ O Processo ETL (Engenharia de Dados)
 
-2. Transformação (Transform)
-Nesta etapa, os dados brutos são higienizados para análise:
+O script `ETL.py` foi desenhado para ser eficiente e escalável, executando as seguintes etapas críticas:
 
-Conversão Monetária: As colunas de valores (Passagens, Diárias, etc.) são convertidas do formato brasileiro (ex: 1.000,00) para o formato float padrão do Python (1000.00), permitindo cálculos matemáticos.
+### 1️⃣ Extração (Extract)
+* 📥 **Leitura Direta:** Processamento de arquivos `.zip` sem necessidade de descompactação manual, economizando armazenamento.
+* 🚀 **Otimização de Memória:** Carregamento do `2025_Viagem.csv` utilizando `io.BytesIO`.
+* 🔤 **Encoding:** Tratamento de codificação (`iso-8859-1`) para garantir a integridade de acentos e caracteres especiais.
 
-Padronização de Texto: Colunas categóricas (como Cargos, Destinos e Motivos) são normalizadas para maiúsculas (UPPERCASE) e têm espaços extras removidos (strip), garantindo consistência nos filtros do Power BI.
+### 2️⃣ Transformação (Transform)
+Nesta etapa, os dados brutos são higienizados para garantir consistência analítica:
 
-Datas: Conversão das colunas de início e fim da viagem para o formato datetime (considerando o padrão dayfirst=True), permitindo cálculos de duração.
+* 💰 **Conversão Monetária:** As colunas de valores (Passagens, Diárias) são convertidas do padrão brasileiro (ex: `1.000,00`) para `float` (ex: `1000.00`), habilitando cálculos matemáticos.
+* 📝 **Padronização de Texto:** Colunas categóricas (Cargos, Destinos, Motivos) são normalizadas para **UPPERCASE** e higienizadas com `strip()`, garantindo filtros precisos no Power BI.
+* 📅 **Datas:** Conversão de strings para objetos `datetime` (padrão `dayfirst=True`), permitindo cálculo de duração das viagens.
+* 🆔 **Identificadores:** IDs críticos (CPF, PCDP, Códigos de Órgãos) são convertidos para **Texto** para preservar zeros à esquerda.
 
-Identificadores: IDs como CPF, PCDP e Códigos de Órgãos são convertidos para Texto para preservar zeros à esquerda e evitar formatação numérica incorreta.
+### 3️⃣ Carga (Load)
+* 💾 **Exportação Final:** Geração do arquivo `Viagens_Tratadas_Final.csv` pronto para consumo.
+* ✅ **Compatibilidade:** Uso do encoding `utf-8-sig` para leitura perfeita no Power BI e Excel.
 
-3. Carga (Load)
-Exportação dos dados tratados para um novo arquivo: Viagens_Tratadas_Final.csv.
-
-Uso do encoding utf-8-sig para garantir compatibilidade total com o motor do Power BI e Excel.
-
-📊 Funcionalidades do Dashboard (Analytics)
-O arquivo Dashboard_Viagens.pbix disponível neste repositório contém:
-
-Mapa de Calor Global: Visualização de densidade que destaca instantaneamente os países e cidades com maior volume de gastos.
-
-Análise de Urgência: Filtro dinâmico que permite isolar "Viagens Urgentes" para auditar custos elevados por falta de planejamento.
-
-Ranking de Órgãos: Utilização de Árvore de Decomposição (ou Matriz) para explorar quais ministérios gastam mais e os motivos específicos de cada despesa.
-
-KPIs Financeiros: Medidas DAX para cálculo de Ticket Médio, Total Gasto e Percentual de Urgência.
-
-🛠️ Como executar este projeto
-Pré-requisitos
-Python 3.x instalado.
-
-Power BI Desktop instalado.
-
-Passo a passo
-Clone este repositório:bash git clone https://github.com/marcosaraujoCL/etl-viagens-governo-br.git
-
-Instale as dependências do Python:
-
-Bash
-pip install pandas
-Execute o script de ETL:
-
-Bash
-python ETL.py
-Abra o arquivo .pbix no Power BI e atualize os dados apontando para o novo CSV gerado.
-
+---
 Autor: Marcos Costa
