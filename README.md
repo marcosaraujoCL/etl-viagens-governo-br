@@ -55,5 +55,5 @@ Nesta etapa, os dados brutos são higienizados para garantir consistência anal�
 
 **Marcos Costa**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](LINK_DO_SEU_LINKEDIN)
-[![Portfolio](https://img.shields.io/badge/Portfólio-100000?style=for-the-badge&logo=github&logoColor=white)](LINK_DO_SEU_PORTFOLIO)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/marcos-costa-92932932b/)
+[![Portfolio](https://img.shields.io/badge/Portfólio-100000?style=for-the-badge&logo=github&logoColor=white)](https://marcosaraujocl.github.io/Portf-lio/)
